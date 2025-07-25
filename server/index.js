@@ -1,28 +1,24 @@
 const express = require('express');
-const admin = require('firebase-admin'); // 修正：確保使用 firebase-admin
-const cors = require('cors'); // 修正後的引用
+const admin = require('firebase-admin');
+const cors = require('cors');
 const fs = require('fs').promises;
 
 const app = express();
-// 暫用全開放 CORS，部署後限制
-app.use(cors());
-app.use(cors({ origin: ['http://localhost:3000', 'https://<your-frontend>.koyeb.app'] })); //  // 部署後更新為前端 URL
+app.use(cors()); // 部署後更新為前端 URL
 app.use(express.json());
 
-async function initialize() {
+async function initializeFirebase() {
   try {
     let serviceAccount;
     if (process.env.FIREBASE_CREDENTIALS) {
       serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS);
     } else {
-      const serviceAccount = require('../serviceAccountKey.json');
-      console.log('Using serviceAccountKey.json:');
-      await fs.readFile(serviceAccount);
       serviceAccount = require('../serviceAccountKey.json');
+      console.log('Using serviceAccountKey.json');
     }
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      databaseURL: 'https://roblox-whitelist-892c2-default-rtdbb.firebaseio.com'
+      databaseURL: 'https://roblox-whitelist-892c2-default-rtdb.firebaseio.com'
     });
     console.log('Firebase initialized successfully');
   } catch (error) {
@@ -31,7 +27,7 @@ async function initialize() {
   }
 }
 
-initialize().catch((error) => {
+initializeFirebase().catch((error) => {
   console.error('Failed to start server:', error);
   process.exit(1);
 });
