@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.gradient-bg {
+  background: linear-gradient(135deg, #4B5EAA, #1E3A8A);
+}
+
+.btn-primary {
+  @apply bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md text-sm md:text-base;
+}
+
+.btn-revoke {
+  @apply bg-red-500 text-white font-semibold py-1 px-2 rounded hover:bg-red-600 transition duration-300 text-xs md:text-sm;
+}
+
+.input-field {
+  @apply w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm md:text-base;
+}
+
+.error-message {
+  @apply text-red-500 text-xs md:text-sm mt-2 font-medium;
+}
+
+.success-message {
+  @apply text-green-500 text-xs md:text-sm mt-2 font-medium;
+}
+
+.code-table-container {
+  @apply overflow-x-auto;
+}
+
+.code-table {
+  @apply w-full border-collapse min-w-[600px];
+}
+
+.code-table th, .code-table td {
+  @apply border border-gray-200 p-2 text-xs md:text-sm;
+}
+
+.code-table th {
+  @apply bg-indigo-50 font-semibold text-indigo-800;
+}
+
+.code-table a {
+  @apply text-blue-600 hover:underline;
+}
